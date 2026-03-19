@@ -32,7 +32,7 @@ function scanGallery(categoryId: string) {
   <header class="site-header">
     <div class="site-header__inner">
       <a class="brand" href="#top" id="top">{portfolio.site.title}</a>
-      <nav class="nav" aria-label="Основна навігація">
+      <nav class="nav" id="main-nav" aria-label="Основна навігація">
         {
           portfolio.categories.map((c) => (
             <a href={`#section-${c.id}`}>{c.title}</a>
@@ -41,8 +41,31 @@ function scanGallery(categoryId: string) {
         <a href="#section-about">Про мене</a>
         <a href="#section-contact">Контакти</a>
       </nav>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Меню">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </div>
   </header>
+
+  <script>
+    const toggle = document.querySelector<HTMLButtonElement>(".nav-toggle");
+    const nav = document.querySelector<HTMLElement>(".nav");
+    if (toggle && nav) {
+      toggle.addEventListener("click", () => {
+        const open = toggle.getAttribute("aria-expanded") === "true";
+        toggle.setAttribute("aria-expanded", String(!open));
+        nav.classList.toggle("is-open", !open);
+      });
+      nav.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+          toggle.setAttribute("aria-expanded", "false");
+          nav.classList.remove("is-open");
+        });
+      });
+    }
+  </script>
 
   <section class="hero" aria-labelledby="hero-heading">
     <div class="hero__media" aria-hidden="true">
