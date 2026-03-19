@@ -482,7 +482,7 @@ section.section.section--instagram .section__head {
 
 /* Fade in when image loaded */
 .gallery-item.img-loaded img {
-  opacity: 1;
+  opacity: 1 !important;
 }
 
 /* Shimmer pulse while loading */
