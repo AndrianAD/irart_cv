@@ -335,12 +335,6 @@ section.section.section--instagram .section__head {
   height: 100%;
 }
 
-.pswp-gallery--instagram .gallery-item picture {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
 .pswp-gallery--instagram .gallery-item img {
   width: 100%;
   height: 100%;
@@ -412,11 +406,6 @@ section.section.section--instagram .section__head {
 }
 
 /* Natural aspect ratio in grid (not Instagram): show full frame, no crop */
-.pswp-gallery:not(.pswp-gallery--instagram) .gallery-item picture {
-  display: block;
-  width: 100%;
-}
-
 .pswp-gallery:not(.pswp-gallery--instagram) .gallery-item img {
   display: block;
   width: 100%;

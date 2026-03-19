@@ -20,18 +20,9 @@
       "intro": "Особисті та брендові портрети, де важлива присутність і довіра до камери.",
       "grid": "instagram",
       "items": [
-        {
-          "files": ["galleries/portrait/01.png", "galleries/portrait/01.jpg"],
-          "alt": "Портрет: тепле студійне світло"
-        },
-        {
-          "files": ["galleries/portrait/02.png", "galleries/portrait/02.jpg"],
-          "alt": "Портрет на нейтральному тлі"
-        },
-        {
-          "files": ["galleries/portrait/03.png", "galleries/portrait/03.jpg"],
-          "alt": "Портрет у природному світлі"
-        },
+        { "file": "galleries/portrait/01.jpg", "alt": "Портрет: тепле студійне світло" },
+        { "file": "galleries/portrait/02.jpg", "alt": "Портрет на нейтральному тлі" },
+        { "file": "galleries/portrait/03.jpg", "alt": "Портрет у природному світлі" },
         { "file": "galleries/portrait/04.jpg", "alt": "Портрет: м’який контровий світ" },
         { "file": "galleries/portrait/05.jpg", "alt": "Портрет у студії" },
         { "file": "galleries/portrait/06.jpg", "alt": "Портрет на вулиці" },

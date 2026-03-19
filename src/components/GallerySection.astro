@@ -1,9 +1,7 @@
 ---
 export interface GalleryItem {
-  /** One file, e.g. `galleries/portrait/01.jpg` */
-  file?: string;
-  /** Same shot in several formats (PNG + JPG, etc.). Browser picks the first supported `<source>`; last entry is `<img>` fallback. Lightbox opens the first path. */
-  files?: string[];
+  /** Path under public/, e.g. `galleries/portrait/01.jpg` — any extension (.jpg, .png, .webp). */
+  file: string;
   alt: string;
   caption?: string;
   /** Optional; lightbox size is taken from the image file automatically. */
@@ -28,20 +26,6 @@ const galleryId = `gallery-${categoryId}`;
 const isInstagram = grid === "instagram";
 
 const hrefFor = (file: string) => `${baseUrl}${file.replace(/^\//, "")}`;
-
-function pathsForItem(item: GalleryItem): string[] {
-  if (item.files?.length) return item.files;
-  if (item.file) return [item.file];
-  return [];
-}
-
-function mimeForPath(p: string): string {
-  const lower = p.toLowerCase();
-  if (lower.endsWith(".png")) return "image/png";
-  if (lower.endsWith(".webp")) return "image/webp";
-  if (lower.endsWith(".jpg") || lower.endsWith(".jpeg")) return "image/jpeg";
-  return "image/jpeg";
-}
 ---
 
 <section
@@ -62,30 +46,12 @@ function mimeForPath(p: string): string {
       <div class="instagram-bleed">
         <div class:list={["pswp-gallery", "pswp-gallery--instagram"]} id={galleryId}>
           {items.map((item, index) => {
-            const paths = pathsForItem(item);
-            if (paths.length === 0) return null;
-            const lightboxHref = hrefFor(paths[0]!);
+            const href = hrefFor(item.file);
             const stagger = Math.min(index, 14);
-            const rest = paths.slice(0, -1);
-            const fallback = paths[paths.length - 1]!;
             return (
               <figure class="gallery-item" data-reveal-child style={`--stagger: ${stagger}`}>
-                <a href={lightboxHref} {...(item.caption ? { "data-pswp-caption": item.caption } : {})}>
-                  {paths.length > 1 ? (
-                    <picture>
-                      {rest.map((p) => (
-                        <source srcset={hrefFor(p)} type={mimeForPath(p)} />
-                      ))}
-                      <img
-                        src={hrefFor(fallback)}
-                        alt={item.alt}
-                        loading="lazy"
-                        decoding="async"
-                      />
-                    </picture>
-                  ) : (
-                    <img src={lightboxHref} alt={item.alt} loading="lazy" decoding="async" />
-                  )}
+                <a href={href} {...(item.caption ? { "data-pswp-caption": item.caption } : {})}>
+                  <img src={href} alt={item.alt} loading="lazy" decoding="async" />
                 </a>
               </figure>
             );
@@ -95,32 +61,14 @@ function mimeForPath(p: string): string {
     ) : (
       <div class:list={["pswp-gallery"]} id={galleryId}>
         {items.map((item, index) => {
-          const paths = pathsForItem(item);
-          if (paths.length === 0) return null;
-          const lightboxHref = hrefFor(paths[0]!);
+          const href = hrefFor(item.file);
           const layoutClass =
             item.layout === "feature" ? "gallery-item gallery-item--feature" : "gallery-item";
           const stagger = Math.min(index, 14);
-          const rest = paths.slice(0, -1);
-          const fallback = paths[paths.length - 1]!;
           return (
             <figure class={layoutClass} data-reveal-child style={`--stagger: ${stagger}`}>
-              <a href={lightboxHref} {...(item.caption ? { "data-pswp-caption": item.caption } : {})}>
-                {paths.length > 1 ? (
-                  <picture>
-                    {rest.map((p) => (
-                      <source srcset={hrefFor(p)} type={mimeForPath(p)} />
-                    ))}
-                    <img
-                      src={hrefFor(fallback)}
-                      alt={item.alt}
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  </picture>
-                ) : (
-                  <img src={lightboxHref} alt={item.alt} loading="lazy" decoding="async" />
-                )}
+              <a href={href} {...(item.caption ? { "data-pswp-caption": item.caption } : {})}>
+                <img src={href} alt={item.alt} loading="lazy" decoding="async" />
               </a>
             </figure>
           );
