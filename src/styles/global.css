@@ -300,6 +300,13 @@ section.section.section--instagram .section__head {
   width: 100%;
   min-width: 0;
   box-sizing: border-box;
+  padding-inline: 1.25rem;
+}
+
+@media (max-width: 720px) {
+  .instagram-bleed {
+    padding-inline: 0.5rem;
+  }
 }
 
 /* —— Gallery grid —— */
