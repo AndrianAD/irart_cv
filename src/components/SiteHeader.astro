@@ -1,0 +1,44 @@
+---
+import portfolio from "../data/portfolio.json";
+
+const base = import.meta.env.BASE_URL.endsWith("/")
+  ? import.meta.env.BASE_URL
+  : `${import.meta.env.BASE_URL}/`;
+---
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="brand" href={`${base}`}>{portfolio.site.title}</a>
+    <nav class="nav" id="main-nav" aria-label="Основна навігація">
+      {portfolio.categories.map((c) => (
+        <a href={`${base}#section-${c.id}`}>{c.title}</a>
+      ))}
+      <a href={`${base}#section-about`}>Про мене</a>
+      <a href={`${base}blog/`}>Блог</a>
+      <a href={`${base}#section-contact`}>Контакти</a>
+    </nav>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Меню">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</header>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>(".nav-toggle");
+  const nav = document.querySelector<HTMLElement>(".nav");
+  if (toggle && nav) {
+    toggle.addEventListener("click", () => {
+      const open = toggle.getAttribute("aria-expanded") === "true";
+      toggle.setAttribute("aria-expanded", String(!open));
+      nav.classList.toggle("is-open", !open);
+    });
+    nav.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        toggle.setAttribute("aria-expanded", "false");
+        nav.classList.remove("is-open");
+      });
+    });
+  }
+</script>
