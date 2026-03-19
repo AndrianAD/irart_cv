@@ -1,15 +1,11 @@
 import { defineConfig } from "astro/config";
 
 /**
- * GitHub Pages:
- * - User/organization site (repo name: <username>.github.io): keep base as "/" (default).
- * - Project site: set base to "/<repository-name>/" (leading/trailing slashes optional; Astro normalizes).
- *
- * Replace `site` with your real URL before going live.
+ * GitHub Pages — project repo: site = user pages host, base = repo path segment.
  */
 export default defineConfig({
-  site: "https://YOUR_USERNAME.github.io",
-  // base: "/YOUR_REPO_NAME/",
+  site: "https://andrianad.github.io",
+  base: "/irart_cv/",
   output: "static",
   compressHTML: true,
 });

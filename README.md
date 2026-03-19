@@ -1,5 +1,8 @@
 # irart_cv — портфоліо / візитка (Astro + GitHub Pages)
 
+**Живий сайт (не цей README):** [https://andrianad.github.io/irart_cv/](https://andrianad.github.io/irart_cv/)  
+Якщо бачиш саме цей текст як «сайт» — ти на сторінці **репозиторію** на GitHub (`github.com/.../irart_cv`), а не на GitHub Pages. Відкрий посилання вище.
+
 Односторінковий сайт-візитка з категоріями робіт, lightbox (PhotoSwipe), плавними появами блоків і підтримкою `prefers-reduced-motion`.
 
 ## Локальна розробка
