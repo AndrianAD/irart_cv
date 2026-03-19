@@ -480,10 +480,28 @@ section.section.section--instagram .section__head {
 }
 
 .contact-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
   padding: 1.25rem 1.35rem;
   border-radius: var(--radius);
   border: 1px solid var(--line);
   background: rgba(28, 25, 23, 0.45);
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.35s var(--ease-out), background 0.35s var(--ease-out);
+}
+
+.contact-card--link:hover {
+  border-color: var(--accent-soft);
+  background: rgba(28, 25, 23, 0.75);
+}
+
+.contact-card__icon {
+  flex-shrink: 0;
+  width: 1.75rem;
+  height: 1.75rem;
+  color: var(--accent);
 }
 
 .contact-card span {
@@ -493,17 +511,12 @@ section.section.section--instagram .section__head {
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--muted);
-  margin-bottom: 0.35rem;
+  margin-bottom: 0.2rem;
 }
 
-.contact-card a {
+.contact-card strong {
   font-weight: 600;
-  color: var(--accent);
-  text-decoration: none;
-}
-
-.contact-card a:hover {
-  text-decoration: underline;
+  color: var(--ink);
 }
 
 .site-footer {
