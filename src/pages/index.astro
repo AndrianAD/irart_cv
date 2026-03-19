@@ -1,4 +1,6 @@
 ---
+import { readdirSync } from "node:fs";
+import { join, extname } from "node:path";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import GallerySection from "../components/GallerySection.astro";
 import portfolio from "../data/portfolio.json";
@@ -10,6 +12,20 @@ const asset = (path: string) => `${base}${path.replace(/^\//, "")}`;
 
 const pageTitle = `${portfolio.site.title} — ${portfolio.site.tagline}`;
 const desc = portfolio.site.heroLead;
+
+const IMAGE_EXTS = new Set([".jpg", ".jpeg", ".png"]);
+
+function scanGallery(categoryId: string) {
+  const dir = join(process.cwd(), "public", "galleries", categoryId);
+  try {
+    return readdirSync(dir)
+      .filter((f) => IMAGE_EXTS.has(extname(f).toLowerCase()))
+      .sort()
+      .map((f) => ({ file: `galleries/${categoryId}/${f}`, alt: "" }));
+  } catch {
+    return [];
+  }
+}
 ---
 
 <BaseLayout title={pageTitle} description={desc}>
@@ -52,7 +68,7 @@ const desc = portfolio.site.heroLead;
         categoryId={cat.id}
         title={cat.title}
         intro={cat.intro}
-        items={cat.items}
+        items={scanGallery(cat.id)}
         baseUrl={base}
         grid={cat.grid === "instagram" ? "instagram" : undefined}
       />
@@ -72,10 +88,6 @@ const desc = portfolio.site.heroLead;
       <p class="section__intro">Напишіть — обговоримо ідею, терміни та формат зйомки.</p>
     </header>
     <div class="contact-grid">
-      <div class="contact-card">
-        <span>Email</span>
-        <a href={`mailto:${portfolio.contact.email}`}>{portfolio.contact.email}</a>
-      </div>
       <div class="contact-card">
         <span>Telegram</span>
         <a href={portfolio.contact.telegram} rel="noopener noreferrer" target="_blank">Написати</a>
