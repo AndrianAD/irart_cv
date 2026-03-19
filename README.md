@@ -1,7 +1,16 @@
 # irart_cv — портфоліо / візитка (Astro + GitHub Pages)
 
-**Живий сайт (не цей README):** [https://andrianad.github.io/irart_cv/](https://andrianad.github.io/irart_cv/)  
-Якщо бачиш саме цей текст як «сайт» — ти на сторінці **репозиторію** на GitHub (`github.com/.../irart_cv`), а не на GitHub Pages. Відкрий посилання вище.
+**Сайт:** [https://andrianad.github.io/irart_cv/](https://andrianad.github.io/irart_cv/)
+
+### Якщо на цьому посиланні показується README замість портфоліо
+
+У репозиторії: **Settings → Pages → Build and deployment**:
+
+1. Поле **Source** має бути **GitHub Actions** (не «Deploy from a branch»).
+2. Якщо стоїть гілка `main` і папка `/ (root)` — GitHub віддає файли з кореня репо (там немає зібраного `index.html`), тому й «сайт» виглядає як README.
+3. Після перемикання на **GitHub Actions** зайди в **Actions**, відкрий останній workflow **Deploy Astro site to GitHub Pages** і переконайся, що він **зелений**. За потреби: **Re-run all jobs**.
+
+Офіційна інструкція Astro: [Deploy to GitHub Pages](https://docs.astro.build/en/guides/deploy/github/).
 
 Односторінковий сайт-візитка з категоріями робіт, lightbox (PhotoSwipe), плавними появами блоків і підтримкою `prefers-reduced-motion`.
 
@@ -48,7 +57,7 @@ npm run preview
 ## GitHub Pages (через GitHub Actions)
 
 1. Залий репозиторій на GitHub.
-2. **Settings → Pages → Build and deployment → Source**: вибери **GitHub Actions** (не «Deploy from a branch»).
+2. **Settings → Pages → Build and deployment → Source**: обовʼязково **GitHub Actions**. Інакше на `*.github.io/irart_cv/` не потрапить збірка з Astro.
 3. У файлі [`astro.config.mjs`](astro.config.mjs) вкажи реальний `site`:
    - для репозиторію `username.github.io`: `site: 'https://username.github.io'`, `base` не потрібен (дефолт `/`);
    - для **проєктного** репо: `site: 'https://username.github.io'` і розкоментуй `base: '/назва-репозиторію/'`.

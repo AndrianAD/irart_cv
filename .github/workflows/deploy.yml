@@ -1,8 +1,12 @@
+# Publishes the Astro `dist/` output to GitHub Pages.
+# REQUIRED: Repo → Settings → Pages → Build and deployment → Source = "GitHub Actions"
+# (If Source is "Deploy from a branch", the site will show README instead of this build.)
+
 name: Deploy Astro site to GitHub Pages
 
 on:
   push:
-    branches: ["main"]
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -21,11 +25,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install, build, and upload
-        uses: withastro/action@v3
+      - name: Install, build, and upload Pages artifact
+        uses: withastro/action@v6
         with:
           path: .
-          node-version: 20
+          node-version: 22
 
   deploy:
     needs: build
