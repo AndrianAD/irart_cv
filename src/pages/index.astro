@@ -1,0 +1,100 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import GallerySection from "../components/GallerySection.astro";
+import portfolio from "../data/portfolio.json";
+
+const base =
+  import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+
+const asset = (path: string) => `${base}${path.replace(/^\//, "")}`;
+
+const pageTitle = `${portfolio.site.title} — ${portfolio.site.tagline}`;
+const desc = portfolio.site.heroLead;
+---
+
+<BaseLayout title={pageTitle} description={desc}>
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a class="brand" href="#top" id="top">{portfolio.site.title}</a>
+      <nav class="nav" aria-label="Основна навігація">
+        {
+          portfolio.categories.map((c) => (
+            <a href={`#section-${c.id}`}>{c.title}</a>
+          ))
+        }
+        <a href="#section-about">Про мене</a>
+        <a href="#section-contact">Контакти</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero" aria-labelledby="hero-heading">
+    <div class="hero__media" aria-hidden="true">
+      <img src={asset(portfolio.heroImage)} alt="" width="1920" height="1080" fetchpriority="high" />
+    </div>
+    <div class="hero__veil" aria-hidden="true"></div>
+    <div class="hero__content">
+      <p class="hero__kicker">{portfolio.site.tagline}</p>
+      <h1 class="hero__title" id="hero-heading">{portfolio.site.title}</h1>
+      <p class="hero__lead">{portfolio.site.heroLead}</p>
+      <div class="hero__actions">
+        <a class="btn btn--primary" href={`#section-${portfolio.categories[0]?.id ?? "portrait"}`}
+          >Портфоліо</a
+        >
+        <a class="btn btn--ghost" href="#section-contact">Звʼязатися</a>
+      </div>
+    </div>
+  </section>
+
+  {
+    portfolio.categories.map((cat) => (
+      <GallerySection
+        categoryId={cat.id}
+        title={cat.title}
+        intro={cat.intro}
+        items={cat.items}
+        baseUrl={base}
+        grid={cat.grid === "instagram" ? "instagram" : undefined}
+      />
+    ))
+  }
+
+  <section class="section" id="section-about" aria-labelledby="about-heading" data-reveal>
+    <div class="about-block">
+      <h2 id="about-heading">{portfolio.about.title}</h2>
+      {portfolio.about.paragraphs.map((p) => <p>{p}</p>)}
+    </div>
+  </section>
+
+  <section class="section" id="section-contact" aria-labelledby="contact-heading" data-reveal>
+    <header class="section__head">
+      <h2 class="section__title" id="contact-heading">Контакти</h2>
+      <p class="section__intro">Напишіть — обговоримо ідею, терміни та формат зйомки.</p>
+    </header>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <span>Email</span>
+        <a href={`mailto:${portfolio.contact.email}`}>{portfolio.contact.email}</a>
+      </div>
+      <div class="contact-card">
+        <span>Telegram</span>
+        <a href={portfolio.contact.telegram} rel="noopener noreferrer" target="_blank">Написати</a>
+      </div>
+      <div class="contact-card">
+        <span>Instagram</span>
+        <a href={portfolio.contact.instagram} rel="noopener noreferrer" target="_blank">Профіль</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <p>
+      © <span id="y"></span>
+      {portfolio.site.title}. Усі права застережено.
+    </p>
+  </footer>
+
+  <script is:inline>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
+</BaseLayout>

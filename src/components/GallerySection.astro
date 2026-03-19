@@ -1,0 +1,78 @@
+---
+export interface GalleryItem {
+  file: string;
+  alt: string;
+  caption?: string;
+  /** Optional; lightbox size is taken from the image file automatically. */
+  width?: number;
+  height?: number;
+  layout?: "feature";
+}
+
+interface Props {
+  categoryId: string;
+  title: string;
+  intro: string;
+  items: GalleryItem[];
+  /** Trailing slash, e.g. import.meta.env.BASE_URL */
+  baseUrl: string;
+  /** Three equal columns, square tiles (Instagram-style) */
+  grid?: "instagram";
+}
+
+const { categoryId, title, intro, items, baseUrl, grid } = Astro.props;
+const galleryId = `gallery-${categoryId}`;
+const isInstagram = grid === "instagram";
+
+const hrefFor = (file: string) => `${baseUrl}${file.replace(/^\//, "")}`;
+---
+
+<section
+  class:list={["section", isInstagram && "section--instagram"]}
+  id={`section-${categoryId}`}
+  aria-labelledby={`heading-${categoryId}`}
+  data-reveal
+>
+  <div class="section__top">
+    <header class="section__head">
+      <h2 class="section__title" id={`heading-${categoryId}`}>{title}</h2>
+      <p class="section__intro">{intro}</p>
+    </header>
+  </div>
+
+  {
+    isInstagram ? (
+      <div class="instagram-bleed">
+        <div class:list={["pswp-gallery", "pswp-gallery--instagram"]} id={galleryId}>
+          {items.map((item, index) => {
+            const href = hrefFor(item.file);
+            const stagger = Math.min(index, 14);
+            return (
+              <figure class="gallery-item" data-reveal-child style={`--stagger: ${stagger}`}>
+                <a href={href} {...(item.caption ? { "data-pswp-caption": item.caption } : {})}>
+                  <img src={href} alt={item.alt} loading="lazy" decoding="async" />
+                </a>
+              </figure>
+            );
+          })}
+        </div>
+      </div>
+    ) : (
+      <div class:list={["pswp-gallery"]} id={galleryId}>
+        {items.map((item, index) => {
+          const href = hrefFor(item.file);
+          const layoutClass =
+            item.layout === "feature" ? "gallery-item gallery-item--feature" : "gallery-item";
+          const stagger = Math.min(index, 14);
+          return (
+            <figure class={layoutClass} data-reveal-child style={`--stagger: ${stagger}`}>
+              <a href={href} {...(item.caption ? { "data-pswp-caption": item.caption } : {})}>
+                <img src={href} alt={item.alt} loading="lazy" decoding="async" />
+              </a>
+            </figure>
+          );
+        })}
+      </div>
+    )
+  }
+</section>

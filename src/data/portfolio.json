@@ -1,0 +1,68 @@
+{
+  "site": {
+    "title": "Іра",
+    "tagline": "Фотографка",
+    "heroLead": "Портрет, предметна зйомка та візуальні історії — зі смаком світла й тиші кадру.",
+    "locale": "uk"
+  },
+  "heroImage": "galleries/hero/hero.jpg",
+  "about": {
+    "title": "Про фотографа",
+    "paragraphs": [
+      "Працюю з природним і студійним світлом, шукаю характер і настрій — у людях і в речах. Кожен проєкт для мене це спільна розмова: від ідеї до готових знімків.",
+      "Замініть цей текст у файлі src/data/portfolio.json на свій — достатньо відредагувати масив paragraphs."
+    ]
+  },
+  "categories": [
+    {
+      "id": "portrait",
+      "title": "Портрет",
+      "intro": "Особисті та брендові портрети, де важлива присутність і довіра до камери.",
+      "grid": "instagram",
+      "items": [
+        { "file": "galleries/portrait/01.jpg", "alt": "Портрет: тепле студійне світло" },
+        { "file": "galleries/portrait/02.jpg", "alt": "Портрет на нейтральному тлі" },
+        { "file": "galleries/portrait/03.jpg", "alt": "Портрет у природному світлі" },
+        { "file": "galleries/portrait/04.jpg", "alt": "Портрет: м’який контровий світ" },
+        { "file": "galleries/portrait/05.jpg", "alt": "Портрет у студії" },
+        { "file": "galleries/portrait/06.jpg", "alt": "Портрет на вулиці" },
+        { "file": "galleries/portrait/07.jpg", "alt": "Портрет: акцент на погляді" },
+        { "file": "galleries/portrait/08.jpg", "alt": "Портрет у тіні" },
+        { "file": "galleries/portrait/09.jpg", "alt": "Портрет: тепла гама" }
+      ]
+    },
+    {
+      "id": "product",
+      "title": "Предметна зйомка",
+      "intro": "Текстура, матеріали й композиція для каталогів, соцмереж та реклами.",
+      "items": [
+        {
+          "file": "galleries/product/01.jpg",
+          "alt": "Предметна зйомка: мінімалістична композиція",
+          "layout": "feature"
+        },
+        { "file": "galleries/product/02.jpg", "alt": "Деталі поверхні та світлотіні" },
+        { "file": "galleries/product/03.jpg", "alt": "Продукт на тлі глибокого тону" }
+      ]
+    },
+    {
+      "id": "reportage",
+      "title": "Репортаж",
+      "intro": "Події, атмосфера та моменти, які хочеться згадувати знову.",
+      "items": [
+        { "file": "galleries/reportage/01.jpg", "alt": "Репортажний кадр з події" },
+        {
+          "file": "galleries/reportage/02.jpg",
+          "alt": "Атмосфера залу",
+          "layout": "feature"
+        },
+        { "file": "galleries/reportage/03.jpg", "alt": "Деталь у русі" }
+      ]
+    }
+  ],
+  "contact": {
+    "email": "you@example.com",
+    "telegram": "https://t.me/druk_ira",
+    "instagram": "https://www.instagram.com/username"
+  }
+}
