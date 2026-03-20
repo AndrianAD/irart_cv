@@ -1,5 +1,7 @@
 ---
 import { getCollection } from "astro:content";
+import { existsSync } from "node:fs";
+import { join } from "node:path";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import SiteHeader from "../../components/SiteHeader.astro";
 
@@ -10,6 +12,17 @@ const posts = (await getCollection("blog")).sort(
 const base = import.meta.env.BASE_URL.endsWith("/")
   ? import.meta.env.BASE_URL
   : `${import.meta.env.BASE_URL}/`;
+
+// Convert absolute URL like /irart_cv/galleries/... → public-relative path
+const urlToPublicPath = (url: string) =>
+  url.replace(/^\/[^/]+\//, ""); // strip /base/
+
+const webpUrl = (url: string) => url.replace(/\.[^.]+$/, ".webp");
+
+const hasWebp = (url: string) => {
+  const rel = urlToPublicPath(url);
+  return existsSync(join(process.cwd(), "public", rel.replace(/\.[^.]+$/, ".webp")));
+};
 ---
 
 <BaseLayout title="Блог — Іра">
@@ -29,7 +42,10 @@ const base = import.meta.env.BASE_URL.endsWith("/")
           <article class="blog-card" data-reveal style={`--stagger: ${i}`}>
             {post.data.cover && (
               <a href={`${base}blog/${post.slug}/`} class="blog-card__cover">
-                <img src={post.data.cover} alt={post.data.title} loading="lazy" decoding="async" />
+                <picture>
+                  {hasWebp(post.data.cover) && <source srcset={webpUrl(post.data.cover)} type="image/webp" />}
+                  <img src={post.data.cover} alt={post.data.title} loading="lazy" decoding="async" />
+                </picture>
               </a>
             )}
             <div class="blog-card__body">
