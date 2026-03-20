@@ -13,7 +13,7 @@ interface Props {
 
 const { src, alt = "", loading = "lazy", ...rest } = Astro.props;
 
-const urlToPublicPath = (url: string) => url.replace(/^\/[^/]+\//, "");
+const urlToPublicPath = (url: string) => url.replace(/^\//, "");
 const webpSrc = src.replace(/\.[^.]+$/, ".webp");
 const hasWebp = existsSync(
   join(process.cwd(), "public", urlToPublicPath(src).replace(/\.[^.]+$/, ".webp"))
