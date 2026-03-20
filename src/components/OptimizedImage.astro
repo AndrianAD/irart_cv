@@ -1,0 +1,26 @@
+---
+import { existsSync } from "node:fs";
+import { join } from "node:path";
+
+interface Props {
+  src: string;
+  alt?: string;
+  width?: number | string;
+  height?: number | string;
+  loading?: "lazy" | "eager";
+  [key: string]: unknown;
+}
+
+const { src, alt = "", loading = "lazy", ...rest } = Astro.props;
+
+const urlToPublicPath = (url: string) => url.replace(/^\/[^/]+\//, "");
+const webpSrc = src.replace(/\.[^.]+$/, ".webp");
+const hasWebp = existsSync(
+  join(process.cwd(), "public", urlToPublicPath(src).replace(/\.[^.]+$/, ".webp"))
+);
+---
+
+<picture>
+  {hasWebp && <source srcset={webpSrc} type="image/webp" />}
+  <img src={src} alt={alt} loading={loading} decoding="async" {...rest} />
+</picture>

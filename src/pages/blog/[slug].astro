@@ -4,6 +4,7 @@ import { existsSync } from "node:fs";
 import { join } from "node:path";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import SiteHeader from "../../components/SiteHeader.astro";
+import OptimizedImage from "../../components/OptimizedImage.astro";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
@@ -56,7 +57,7 @@ const hasWebp = (url: string) =>
       </header>
 
       <div class="blog-post__body prose" data-reveal>
-        <Content />
+        <Content components={{ img: OptimizedImage }} />
       </div>
 
       <a href={`${base}blog/`} class="blog-post__back">← Всі пости</a>
